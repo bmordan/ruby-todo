@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body class="bg-washed-blue sans-serif dark-blue pa6">
+        <header>
+            <h1>Todo List</h1>
+        </header>
+        <main>
+            <ul>
+                <% if todos.empty? %>
+                    <li>Create a task</li>
+                <% end %>
+                <% todos.each do |todo| %>
+                    <li class="flex justify-end w-30 mb1">
+                        <span class="flex-auto <%= todo.status == "1" ? "strike" : ""%>"><%= todo.task %></span>
+                        <form method="POST" action="/" class="dib flex-none">
+                            <input name="id" type="hidden" value="<%=todo.id%>">
+                            <input name="task" type="hidden" value="<%=todo.task%>">
+                            <input name="status" type="hidden" value="1">
+                            <button class="ml2 dib bg-dark-blue white ba b--transparent" type="submit">Done</button>
+                        </form>
+                        <form method="POST" action="/" class="dib flex-none">
+                            <input name="id" type="hidden" value="<%=todo.id%>">
+                            <input name="delete" type="hidden" value="true">
+                            <button class="ml2 dib bg-dark-red white ba b--transparent" type="submit">Delete</button>
+                        </form>
+                    </li>
+                <% end %>
+            </ul>
+        </main>
+        <footer style="padding-left:40px;">
+            <form method="POST" action="/" class="flex justify-end w-30">
+                <input class="flex-auto" type="text" name="task" placeholder="New task" />
+                <button class="ml1 bg-dark-green white ba b--transparent flex-none" type="submit">Create</button>
+            </form>
+        </footer>
+    <body>
+</html>
